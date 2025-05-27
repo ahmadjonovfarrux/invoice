@@ -12,7 +12,19 @@ import {
 } from "@/components/ui/select";
 import { Button } from "./ui/button";
 
-function Form() {
+function Form({ info }) {
+  const {
+    createdAt,
+    description,
+    senderAddress,
+    clientAddress,
+    clientEmail,
+    clientName,
+    paymentTerms,
+    paymentDue,
+    postCode,
+    items,
+  } = info || {};
   return (
     <form className="p-4 pt-[56px]">
       {/* Bill From */}
@@ -23,6 +35,7 @@ function Form() {
             <Label htmlFor="senderAddress-street">Street Address</Label>
             <Input
               type="text"
+              defaultValue={info && senderAddress.street}
               id="senderAddress-street"
               placeholder="Street Address"
               name="senderAddress-street"
@@ -34,26 +47,29 @@ function Form() {
               <Label htmlFor="senderAddress-city">City</Label>
               <Input
                 type="text"
+                defaultValue={info && senderAddress.city}
                 id="senderAddress-city"
                 name="senderAddress-city"
                 placeholder="City"
               />
             </div>
-
+            {/* Sender Address postCode */}
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="senderAddress-postcode">Post Code</Label>
+              <Label htmlFor="senderAddress-postCode">Post Code</Label>
               <Input
                 type="text"
-                id="senderAddress-postcode"
+                defaultValue={info && senderAddress.postCode}
+                id="senderAddress-postCode"
                 placeholder="Post Code"
-                name="senderAddress-postcode"
+                name="senderAddress-postCode"
               />
             </div>
-
+            {/* senderAddress country */}
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="senderAddress-country">Country</Label>
               <Input
                 type="text"
+                defaultValue={info && senderAddress.country}
                 id="senderAddress-country"
                 placeholder="Country"
                 name="senderAddress-country"
@@ -70,6 +86,7 @@ function Form() {
           <div className="grid w-full max-w-full items-center gap-1.5">
             <Label htmlFor="clientName">Client's Name</Label>
             <Input
+              defaultValue={info && clientName}
               type="text"
               id="clientName"
               placeholder="Clients Name"
@@ -81,49 +98,54 @@ function Form() {
             <Label htmlFor="clientEmail">Client's Email</Label>
             <Input
               type="text"
+              defaultValue={info && clientEmail}
               id="clientEmail"
               placeholder="Clients Email"
               name="clientEmail"
             />
           </div>
         </div>
-        {/* Street Address */}
+        {/* Client Street Address */}
         <div className="flex flex-col gap-5">
           <div className="grid w-full max-w-full items-center gap-1.5">
             <Label htmlFor="clientAddress-street">Street Address</Label>
             <Input
               type="text"
+              defaultValue={info && clientAddress.street}
               id="clientAddress-street"
               placeholder="Street Address"
               name="clientAddress-street"
             />
           </div>
-
+          {/* ClientAddres city */}
           <div className="flex justify-between items-center gap-5">
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="clientAddress-city">City</Label>
               <Input
                 type="text"
+                defaultValue={info && clientAddress.city}
                 id="clientAddress-city"
                 name="clientAddress-city"
                 placeholder="City"
               />
             </div>
-
+            {/* ClientAddres Postcode */}
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="clientAddress-postcode">Post Code</Label>
+              <Label htmlFor="clientAddress-postCode">Post Code</Label>
               <Input
                 type="text"
-                id="clientAddress-postcode"
+                defaultValue={info && clientAddress.postCode}
+                id="clientAddress-postCode"
                 placeholder="Post Code"
-                name="clientAddress-postcode"
+                name="clientAddress-postCode"
               />
             </div>
-
+            {/* ClientAddress country */}
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="clientAddress-country">Country</Label>
               <Input
                 type="text"
+                defaultValue={info && clientAddress.country}
                 id="clientAddress-country"
                 placeholder="Country"
                 name="clientAddress-country"
@@ -139,6 +161,7 @@ function Form() {
           <div className="grid w-full max-w-full items-center gap-1.5">
             <Label htmlFor="createdAt">Invoice Date</Label>
             <Input
+              defaultValue={info && createdAt}
               type="date"
               id="createdAt"
               placeholder="Invoice Date"
@@ -146,7 +169,10 @@ function Form() {
             />
           </div>
           {/* Select */}
-          <Select name="paymentTerms">
+          <Select
+            name="paymentTerms"
+            defaultValue={info ?? paymentTerms.toString()}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Payment Terms" />
             </SelectTrigger>
@@ -167,17 +193,28 @@ function Form() {
           <Label htmlFor="description">Project Description</Label>
           <Input
             type="text"
+            defaultValue={info && description}
             id="description"
             placeholder="Project Description"
             name="description"
           />
         </div>
       </div>
-      <ItemList />
-      <div className="flex items-center justify-end gap-5 mt-10">
-        <Button variant={"outline"}>Cancel</Button>
-        <Button>Save changes</Button>
-      </div>
+
+      <ItemList info={info && info.items} />
+
+      {info ? (
+        <div className="flex items-center justify-end gap-5 mt-10">
+          <Button variant={"outline"}>Cancel</Button>
+          <Button>Save changes</Button>
+        </div>
+      ) : (
+        <div className="flex items-center justify-end gap-5 mt-10">
+          <Button variant={"outline"}>Discard</Button>
+          <Button variant={"secondary"}>Save as Draft</Button>
+          <Button>Save & Send</Button>
+        </div>
+      )}
     </form>
   );
 }

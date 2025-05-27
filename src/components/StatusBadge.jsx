@@ -24,13 +24,13 @@ function StatusBadge({ status = "draft" }) {
         variant: "outline",
       })} min-w-[104px] }`}
       style={{
-        backgroundColor: style[status].bg,
+        backgroundColor: style[status]?.bg,
       }}
     >
       <span
-        className={`inline-block w-2 h-2 rounded-full ${style[status].dote}`}
+        className={`inline-block w-2 h-2 rounded-full ${style[status]?.dote}`}
       ></span>
-      <span className={`capitalize ${style[status].text}`}>{status}</span>
+      <span className={`capitalize ${style[status]?.status}`}>{status}</span>
     </span>
   );
 }

@@ -4,8 +4,8 @@ import { Button } from "./ui/button";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-function ItemList() {
-  const [items, setItems] = useState([
+function ItemList({ info }) {
+  const [items, setItems] = useState(info ? info : [
     {
       id: crypto.randomUUID(),
       name: "Banner Design",

@@ -11,7 +11,6 @@ function InvoiceCards() {
   const [error, setError] = useState(false);
   const [invoices, setInvoices] = useState([]);
 
-  console.log("filter:", filter);
   useEffect(() => {
     setLoading(true);
     getInvoices("/invoices", filter)

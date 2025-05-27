@@ -24,6 +24,35 @@ import {
 } from "@/components/ui/sheet";
 import Form from "./Form";
 
+const info = {
+  senderAddress: {
+    street: "19 Union Terrace",
+    city: "London",
+    postCode: "E1 3EZ",
+    country: "United Kingdom",
+  },
+  clientAddress: {
+    street: "84 Church Way",
+    city: "Bradford",
+    postCode: "BD1 9PB",
+    country: "United Kingdom",
+  },
+  items: [
+    {
+      name: "Banner Design",
+      quantity: 1,
+      price: 156,
+      total: 156,
+    },
+    {
+      name: "Email Design",
+      quantity: 2,
+      price: 200,
+      total: 400,
+    },
+  ],
+  total: 556,
+};
 function Header() {
   const { setFilter } = useAppStore();
   const [items, setItems] = useState({
@@ -100,7 +129,7 @@ function Header() {
             <SheetHeader className="top-0 sticky w-full bg-white border-b">
               <SheetTitle>Are you absolutely sure?</SheetTitle>
             </SheetHeader>
-            <Form />
+            <Form info={info} />
           </SheetContent>
         </Sheet>
       </div>
