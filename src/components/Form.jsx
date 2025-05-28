@@ -11,8 +11,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "./ui/button";
+import { prepareData } from "../lib/utils";
+import { useAppStore } from "../lib/zustand";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { addInvoice } from "../request";
 
-function Form({ info }) {
+function Form({ info, setSheetOpen }) {
+  const { items: zustandItems } = useAppStore();
   const {
     createdAt,
     description,
@@ -25,8 +31,47 @@ function Form({ info }) {
     postCode,
     items,
   } = info || {};
+  const { setInvoices } = useAppStore();
+  const [sending, setSending] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const result = { status: e.nativeEvent.submitter.id };
+    formData.forEach((value, key) => {
+      if (key === "quantity" || key === "price" || key === "paymentTerms") {
+        result[key] = Number(value);
+      } else {
+        result[key] = value;
+      }
+    });
+    result.items = zustandItems;
+    const readyData = prepareData(result);
+    setSending(readyData);
+  }
+
+  useEffect(() => {
+    if (sending) {
+      setLoading(true);
+      addInvoice(sending)
+        .then((res) => {
+          setInvoices([res]);
+          toast.success("Successfully added");
+          setSheetOpen(false);
+        })
+        .catch(({ message }) => {
+          toast.error(message);
+        })
+        .finally(() => {
+          setLoading(false);
+          setSending(null);
+        });
+    }
+  }, [JSON.stringify(sending)]);
+
   return (
-    <form className="p-4 pt-[56px]">
+    <form onSubmit={handleSubmit} className="p-4 pt-[56px]">
       {/* Bill From */}
       <div className="mb-10">
         <h3 className="text-2xl font-medium">Bill From</h3>
@@ -171,7 +216,7 @@ function Form({ info }) {
           {/* Select */}
           <Select
             name="paymentTerms"
-            defaultValue={info ?? paymentTerms.toString()}
+            defaultValue={info && paymentTerms.toString()}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Payment Terms" />
@@ -201,18 +246,26 @@ function Form({ info }) {
         </div>
       </div>
 
-      <ItemList info={info && info.items} />
+      <ItemList info={items} />
 
       {info ? (
         <div className="flex items-center justify-end gap-5 mt-10">
           <Button variant={"outline"}>Cancel</Button>
-          <Button>Save changes</Button>
+          <Button disabled={loading}>
+            {loading ? "Loading..." : "Save changes"}
+          </Button>
         </div>
       ) : (
         <div className="flex items-center justify-end gap-5 mt-10">
-          <Button variant={"outline"}>Discard</Button>
-          <Button variant={"secondary"}>Save as Draft</Button>
-          <Button>Save & Send</Button>
+          <Button type="button" variant={"outline"}>
+            Discard
+          </Button>
+          <Button disabled={loading} id="draft" variant={"secondary"}>
+            {loading ? "Loading..." : "Save as Draft"}
+          </Button>
+          <Button disabled={loading} id="pending">
+            {loading ? "Loading..." : "Save & Send"}
+          </Button>
         </div>
       )}
     </form>
