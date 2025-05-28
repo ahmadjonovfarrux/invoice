@@ -1,28 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { useAppStore } from "../lib/zustand";
 
 function ItemList({ info }) {
-  const [items, setItems] = useState(info ? info : [
-    {
-      id: crypto.randomUUID(),
-      name: "Banner Design",
-      quantity: 1,
-      price: 156,
-      get total() {
-        return this.price * this.quantity;
-      },
-    },
-  ]);
+  const { setItems } = useAppStore();
+  const [localItems, setLocalItems] = useState(
+    info
+      ? info
+      : [
+          {
+            id: crypto.randomUUID(),
+            name: "",
+            quantity: 1,
+            price: 0,
+            get total() {
+              return +this.price * +this.quantity;
+            },
+          },
+        ]
+  );
+  useEffect(() => {
+    setItems(localItems);
+  }, [JSON.stringify(localItems)]);
 
   function handleChange(e, id) {
-    const changedItem = items.find((el) => {
+    const changedItem = localItems.find((el) => {
       return el.id == id;
     });
     changedItem[e.target.name] = e.target.value;
-    setItems((prev) => {
+    setLocalItems((prev) => {
       const mapped = prev.map((el) => {
         if (el.id === changedItem.id) {
           return changedItem;
@@ -36,8 +45,8 @@ function ItemList({ info }) {
 
   function handleClick(type, id) {
     if (type === "add") {
-      if (items.at(-1).name.trim() !== "") {
-        setItems((prev) => {
+      if (localItems.at(-1).name.trim() !== "") {
+        setLocalItems((prev) => {
           return [
             ...prev,
             {
@@ -55,11 +64,11 @@ function ItemList({ info }) {
         toast.info("Enter the last name!");
       }
     } else if (type === "delete") {
-      if (items.length === 1) {
+      if (localItems.length === 1) {
         toast.info("Eng kamida bitta element bo'lishi kerak!");
       } else {
-        const filtered = items.filter((el) => el.id !== id);
-        setItems(filtered);
+        const filtered = localItems.filter((el) => el.id !== id);
+        setLocalItems(filtered);
       }
     }
   }
@@ -74,7 +83,7 @@ function ItemList({ info }) {
         <span>Total</span>
       </div>
       <ul className="flex flex-col gap-5 mb-5">
-        {items.map(({ name, quantity, total, price, id }, index) => {
+        {localItems.map(({ name, quantity, total, price, id }, index) => {
           return (
             <li className="flex items-center justify-between" key={index}>
               <Input
@@ -101,8 +110,9 @@ function ItemList({ info }) {
                 name="price"
                 placeholder="Price"
               />
-              <span>{total.toFixed(2)}</span>
+              <span>{(price * quantity).toFixed(2)}</span>
               <Button
+                type="button"
                 onClick={() => handleClick("delete", id)}
                 variant={`destructive`}
                 size={`icon`}

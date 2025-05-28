@@ -1,8 +1,8 @@
 const baseUrl = import.meta.env.VITE_BASE__URL;
 
-export async function getInvoices(route = "/invoices", query = "") {
+export async function getInvoices(query = "") {
   // All
-  const req = await fetch(baseUrl + route + (query ? `?status=${query}` : ""));
+  const req = await fetch(baseUrl + (query ? `?status=${query}` : ""));
   if (req.status === 200) {
     const result = await req.json();
     return result.data;
@@ -11,8 +11,8 @@ export async function getInvoices(route = "/invoices", query = "") {
   }
 }
 // Get by Id
-export async function getInvoice(route = "/invoices", id) {
-  const req = await fetch(baseUrl + route + `/${id}`);
+export async function getInvoice(id) {
+  const req = await fetch(baseUrl + `/${id}`);
   if (req.status === 200) {
     const result = await req.json();
     return result;
@@ -35,6 +35,9 @@ export async function deleteById(id) {
 export async function updateById(id, newData) {
   const req = await fetch(baseUrl + `/${id}`, {
     method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(newData),
   });
 
@@ -50,6 +53,9 @@ export async function updateById(id, newData) {
 export async function addInvoice(data) {
   const req = await fetch(baseUrl, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(data),
   });
 

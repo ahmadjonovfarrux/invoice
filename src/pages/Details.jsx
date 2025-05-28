@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { getInvoice } from "../request";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { deleteById, getInvoice, updateById } from "../request";
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import StatusBadge from "../components/StatusBadge";
@@ -13,16 +13,22 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { toast } from "sonner";
+import { useAppStore } from "../lib/zustand";
 
 function Details() {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const { updateInvoices } = useAppStore();
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [invoice, setInvoice] = useState([]);
 
   useEffect(() => {
     setLoading(true);
-    getInvoice("/invoices", id)
+    getInvoice(id)
       .then((res) => {
         setInvoice(res);
       })
@@ -34,6 +40,37 @@ function Details() {
         setLoading(false);
       });
   }, []);
+
+  function handleDelete(id) {
+    setDeleteLoading(true);
+    deleteById(id)
+      .then((res) => {
+        navigate("/");
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+        console.log(message);
+      })
+      .finally(() => {
+        setDeleteLoading(false);
+      });
+  }
+
+  function handleUpdate(id, data) {
+    setUpdateLoading(true);
+    updateById(id, data)
+      .then((res) => {
+        updateInvoices(res);
+        navigate(-1);
+      })
+      .catch(({ message }) => {
+        toast.error(message);
+        console.log(message);
+      })
+      .finally(() => {
+        setUpdateLoading(false);
+      });
+  }
 
   if (loading) {
     return (
@@ -79,12 +116,27 @@ function Details() {
                     >
                       Cancel
                     </DialogClose>
-                    <Button variant={"destructive"}>Delete</Button>
+                    <Button
+                      onClick={() => handleDelete(invoice.id)}
+                      variant={"destructive"}
+                      disabled={deleteLoading}
+                    >
+                      {deleteLoading ? "Loading..." : "Delete"}
+                    </Button>
                   </div>
                 </DialogContent>
               </Dialog>
 
-              <Button variant={`default`}>Mark as Paid</Button>
+              {invoice.status === "pending" && (
+                <>
+                  <Button
+                    onClick={() => handleUpdate(invoice.id, { status: "paid" })}
+                    variant={`default`}
+                  >
+                    {updateLoading ? "Loading..." : "Mark As Paid"}
+                  </Button>
+                </>
+              )}
             </div>
           </CardContent>
         </Card>
