@@ -32,7 +32,7 @@ export async function deleteById(id) {
 }
 
 // Update by id
-export async function updateById(id, newData) {
+export async function updateById({ id, newData }) {
   const req = await fetch(baseUrl + `/${id}`, {
     method: "PATCH",
     headers: {
