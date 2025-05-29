@@ -17,9 +17,9 @@ import { toast } from "sonner";
 import { useAppStore } from "../lib/zustand";
 
 function Details() {
+  const { setSheetOpen, setEditedData, updateInvoices } = useAppStore();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { updateInvoices } = useAppStore();
   const [updateLoading, setUpdateLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -41,6 +41,7 @@ function Details() {
       });
   }, []);
 
+  // handleDelete function
   function handleDelete(id) {
     setDeleteLoading(true);
     deleteById(id)
@@ -56,6 +57,7 @@ function Details() {
       });
   }
 
+  // handleUpdate function
   function handleUpdate(id, data) {
     setUpdateLoading(true);
     updateById(id, data)
@@ -72,6 +74,13 @@ function Details() {
       });
   }
 
+  // handleEdit function
+  function handleEdit(data) {
+    setSheetOpen();
+    setEditedData(data);
+  }
+
+  // Loading
   if (loading) {
     return (
       <div className="base__container">
@@ -79,7 +88,7 @@ function Details() {
       </div>
     );
   }
-
+  // error
   if (error) {
     return <p>{error}</p>;
   }
@@ -94,7 +103,14 @@ function Details() {
               <StatusBadge status={invoice.status} />
             </div>
             <div className="flex items-center gap-3">
-              <Button variant={`secondary`}>Edit</Button>
+              <Button
+                onClick={() => {
+                  handleEdit(invoice);
+                }}
+                variant={`secondary`}
+              >
+                Edit
+              </Button>
 
               <Dialog>
                 <DialogTrigger

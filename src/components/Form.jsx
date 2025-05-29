@@ -15,7 +15,8 @@ import { prepareData } from "../lib/utils";
 import { useAppStore } from "../lib/zustand";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { addInvoice } from "../request";
+import { addInvoice, updateById } from "../request";
+import { useNavigate } from "react-router-dom";
 
 function Form({ info, setSheetOpen }) {
   const { items: zustandItems } = useAppStore();
@@ -27,18 +28,21 @@ function Form({ info, setSheetOpen }) {
     clientEmail,
     clientName,
     paymentTerms,
-    paymentDue,
-    postCode,
     items,
   } = info || {};
-  const { setInvoices } = useAppStore();
+  const navigate = useNavigate();
+  const { updateInvoices } = useAppStore();
   const [sending, setSending] = useState(null);
   const [loading, setLoading] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const result = { status: e.nativeEvent.submitter.id };
+    const result = {};
+    if (!info) {
+      result.status = e.nativeEvent.submitter.id;
+    }
+
     formData.forEach((value, key) => {
       if (key === "quantity" || key === "price" || key === "paymentTerms") {
         result[key] = Number(value);
@@ -46,29 +50,51 @@ function Form({ info, setSheetOpen }) {
         result[key] = value;
       }
     });
+
     result.items = zustandItems;
     const readyData = prepareData(result);
-    setSending(readyData);
+    setSending({
+      mode: e.nativeEvent.submitter.id === "edit" ? "edit" : "add",
+      data: readyData,
+    });
   }
 
   useEffect(() => {
     if (sending) {
       setLoading(true);
-      addInvoice(sending)
-        .then((res) => {
-          setInvoices([res]);
-          toast.success("Successfully added");
-          setSheetOpen(false);
-        })
-        .catch(({ message }) => {
-          toast.error(message);
-        })
-        .finally(() => {
-          setLoading(false);
-          setSending(null);
-        });
+      if (sending.mode === "add") {
+        addInvoice(sending.data)
+          .then((res) => {
+            updateInvoices(res);
+            toast.success("Successfully added");
+            setSheetOpen(false);
+          })
+          .catch(({ message }) => {
+            toast.error(message);
+          })
+          .finally(() => {
+            setLoading(false);
+            setSending(null);
+          });
+      } else if (sending.mode === "edit") {
+        updateById({ id: info.id, newData: sending.data })
+          .then((res) => {
+            updateInvoices(res);
+            toast.success("Successfully edited");
+            navigate(-1);
+            setSheetOpen(false);
+          })
+          .catch(({ message }) => {
+            toast.error(message);
+            console.log(message);
+          })
+          .finally(() => {
+            setLoading(false);
+            setSending(null);
+          });
+      }
     }
-  }, [JSON.stringify(sending)]);
+  }, [sending ? JSON.stringify(sending) : sending]);
 
   return (
     <form onSubmit={handleSubmit} className="p-4 pt-[56px]">
@@ -250,16 +276,26 @@ function Form({ info, setSheetOpen }) {
 
       {info ? (
         <div className="flex items-center justify-end gap-5 mt-10">
-          <Button variant={"outline"}>Cancel</Button>
-          <Button disabled={loading}>
+          {/* Cancel */}
+          <Button variant={"outline"} onClick={() => setSheetOpen(false)}>
+            Cancel
+          </Button>
+          {/* Save changes */}
+          <Button id="edit" disabled={loading}>
             {loading ? "Loading..." : "Save changes"}
           </Button>
         </div>
       ) : (
         <div className="flex items-center justify-end gap-5 mt-10">
-          <Button type="button" variant={"outline"}>
+          {/* Discard */}
+          <Button
+            type="button"
+            variant={"outline"}
+            onClick={() => setSheetOpen(false)}
+          >
             Discard
           </Button>
+          {/* Save as Draft */}
           <Button disabled={loading} id="draft" variant={"secondary"}>
             {loading ? "Loading..." : "Save as Draft"}
           </Button>
