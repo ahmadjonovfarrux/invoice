@@ -40,7 +40,7 @@ function Header() {
     <div>
       <div className="base__container flex items-center justify-between py-10">
         <div>
-          <h1 className="">Invoices</h1>
+          <h1 className="header__title ">Invoices</h1>
           <p>There are {invoices?.length} total invoices</p>
         </div>
         {/* dropdownmenu */}

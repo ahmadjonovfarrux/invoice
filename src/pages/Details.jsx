@@ -60,7 +60,7 @@ function Details() {
   // handleUpdate function
   function handleUpdate(id, data) {
     setUpdateLoading(true);
-    updateById(id, data)
+    updateById({ id, newData: data })
       .then((res) => {
         updateInvoices(res);
         navigate(-1);
@@ -92,6 +92,7 @@ function Details() {
   if (error) {
     return <p>{error}</p>;
   }
+  // console.log(invoice);
 
   return (
     <div className="py-5">
