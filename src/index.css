@@ -61,7 +61,6 @@
     font-size: 32px;
     line-height: 1;
     font-weight: 700;
-    color: #0c0e16;
   }
 
   .header__subtitle,
@@ -81,11 +80,16 @@
     font-size: 12px;
     line-height: 1.2;
     font-weight: 700;
-    color: #0c0e16;
   }
 
   .header__hidden__dropdown {
     display: none;
+  }
+
+  /* SideBar page */
+  .sideBar__sheet__title {
+    font-size: 24px;
+    font-weight: 700;
   }
 
   /* My Card page */
@@ -95,7 +99,54 @@
     line-height: 1.5;
   }
 
-  /* 766px */
+  .myCard__hidden {
+    display: none;
+  }
+
+  .myCard__name {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #858bb2;
+  }
+
+  /* Details page */
+
+  .details__title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .details__paragrph {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #7e88c3;
+  }
+
+  .card__buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card__hidden__buttons {
+    display: none;
+  }
+
+  /* Media 705 */
+  @media (max-width: 705px) {
+    .myCard__hidden {
+      display: flex;
+    }
+
+    .myCard__card {
+      display: none;
+    }
+  }
+
+  /* 600px */
   @media (max-width: 600px) {
     .header__title {
       font-size: 20px;
@@ -124,6 +175,35 @@
 
     .sidebar__toggle {
       display: none;
+    }
+  }
+
+  /* Media 540 */
+  @media (max-width: 540px) {
+    .card__buttons {
+      display: none;
+    }
+
+    .card__hidden__buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+
+  /* Media 470 */
+  @media (max-width: 470px) {
+    .details__sending__id {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .details__senderAddress {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      text-align: start;
     }
   }
 }

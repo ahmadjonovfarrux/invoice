@@ -97,7 +97,7 @@ function Form({ info, setSheetOpen }) {
   }, [sending ? JSON.stringify(sending) : sending]);
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 pt-[56px]">
+    <form onSubmit={handleSubmit} className="p-4 pt-[20px]">
       {/* Bill From */}
       <div className="mb-10">
         <h3 className="text-2xl font-medium">Bill From</h3>

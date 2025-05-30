@@ -1,7 +1,6 @@
 const baseUrl = import.meta.env.VITE_BASE__URL;
 
 export async function getInvoices(query = "") {
-  // All
   const req = await fetch(baseUrl + (query ? `?status=${query}` : ""));
   if (req.status === 200) {
     const result = await req.json();
