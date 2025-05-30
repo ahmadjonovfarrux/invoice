@@ -100,10 +100,15 @@ function Form({ info, setSheetOpen }) {
     <form onSubmit={handleSubmit} className="p-4 pt-[20px]">
       {/* Bill From */}
       <div className="mb-10">
-        <h3 className="text-2xl font-medium">Bill From</h3>
+        <h3 className="sheet__title">Bill From</h3>
         <div className="flex flex-col gap-5">
           <div className="grid w-full max-w-full items-center gap-1.5">
-            <Label htmlFor="senderAddress-street">Street Address</Label>
+            <Label
+              className="sheet__global__text mb-[10px]"
+              htmlFor="senderAddress-street "
+            >
+              Street Address
+            </Label>
             <Input
               type="text"
               defaultValue={info && senderAddress.street}
@@ -112,32 +117,49 @@ function Form({ info, setSheetOpen }) {
               name="senderAddress-street"
             />
           </div>
-
-          <div className="flex justify-between items-center gap-5">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="senderAddress-city">City</Label>
-              <Input
-                type="text"
-                defaultValue={info && senderAddress.city}
-                id="senderAddress-city"
-                name="senderAddress-city"
-                placeholder="City"
-              />
-            </div>
-            {/* Sender Address postCode */}
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="senderAddress-postCode">Post Code</Label>
-              <Input
-                type="text"
-                defaultValue={info && senderAddress.postCode}
-                id="senderAddress-postCode"
-                placeholder="Post Code"
-                name="senderAddress-postCode"
-              />
+          {/* senderAddress */}
+          <div className="flex justify-between flex-wrap md:flex-nowrap lg:flex-nowrap items-center gap-5">
+            <div className="flex items-center gap-5">
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label
+                  className="sheet__global__text mb-[10px]"
+                  htmlFor="senderAddress-city"
+                >
+                  City
+                </Label>
+                <Input
+                  type="text"
+                  defaultValue={info && senderAddress.city}
+                  id="senderAddress-city"
+                  name="senderAddress-city"
+                  placeholder="City"
+                />
+              </div>
+              {/* Sender Address postCode */}
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label
+                  className="sheet__global__text mb-[10px]"
+                  htmlFor="senderAddress-postCode"
+                >
+                  Post Code
+                </Label>
+                <Input
+                  type="text"
+                  defaultValue={info && senderAddress.postCode}
+                  id="senderAddress-postCode"
+                  placeholder="Post Code"
+                  name="senderAddress-postCode"
+                />
+              </div>
             </div>
             {/* senderAddress country */}
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="senderAddress-country">Country</Label>
+            <div className="grid w-full max-w-full items-center gap-1.5">
+              <Label
+                className="sheet__global__text mb-[10px]"
+                htmlFor="senderAddress-country"
+              >
+                Country
+              </Label>
               <Input
                 type="text"
                 defaultValue={info && senderAddress.country}
@@ -151,11 +173,13 @@ function Form({ info, setSheetOpen }) {
       </div>
       {/* Bill To */}
       <div className="mb-10">
-        <h3 className="text-2xl font-medium">Bill To</h3>
+        <h3 className="sheet__title">Bill To</h3>
         <div className="flex flex-col gap-5 mb-5">
           {/* Client Name input */}
           <div className="grid w-full max-w-full items-center gap-1.5">
-            <Label htmlFor="clientName">Client's Name</Label>
+            <Label className="sheet__global__text" htmlFor="clientName">
+              Client's Name
+            </Label>
             <Input
               defaultValue={info && clientName}
               type="text"
@@ -166,7 +190,9 @@ function Form({ info, setSheetOpen }) {
           </div>
           {/* Client Email input */}
           <div className="grid w-full max-w-full items-center gap-1.5">
-            <Label htmlFor="clientEmail">Client's Email</Label>
+            <Label className="sheet__global__text" htmlFor="clientEmail">
+              Client's Email
+            </Label>
             <Input
               type="text"
               defaultValue={info && clientEmail}
@@ -179,7 +205,12 @@ function Form({ info, setSheetOpen }) {
         {/* Client Street Address */}
         <div className="flex flex-col gap-5">
           <div className="grid w-full max-w-full items-center gap-1.5">
-            <Label htmlFor="clientAddress-street">Street Address</Label>
+            <Label
+              className="sheet__global__text"
+              htmlFor="clientAddress-street"
+            >
+              Street Address
+            </Label>
             <Input
               type="text"
               defaultValue={info && clientAddress.street}
@@ -189,31 +220,48 @@ function Form({ info, setSheetOpen }) {
             />
           </div>
           {/* ClientAddres city */}
-          <div className="flex justify-between items-center gap-5">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="clientAddress-city">City</Label>
-              <Input
-                type="text"
-                defaultValue={info && clientAddress.city}
-                id="clientAddress-city"
-                name="clientAddress-city"
-                placeholder="City"
-              />
-            </div>
-            {/* ClientAddres Postcode */}
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="clientAddress-postCode">Post Code</Label>
-              <Input
-                type="text"
-                defaultValue={info && clientAddress.postCode}
-                id="clientAddress-postCode"
-                placeholder="Post Code"
-                name="clientAddress-postCode"
-              />
+          <div className="flex justify-between flex-wrap md:flex-nowrap lg:flex-nowrap items-center gap-5">
+            <div className="flex items-center gap-5">
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label
+                  className="sheet__global__text"
+                  htmlFor="clientAddress-city"
+                >
+                  City
+                </Label>
+                <Input
+                  type="text"
+                  defaultValue={info && clientAddress.city}
+                  id="clientAddress-city"
+                  name="clientAddress-city"
+                  placeholder="City"
+                />
+              </div>
+              {/* ClientAddres Postcode */}
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label
+                  className="sheet__global__text"
+                  htmlFor="clientAddress-postCode"
+                >
+                  Post Code
+                </Label>
+                <Input
+                  type="text"
+                  defaultValue={info && clientAddress.postCode}
+                  id="clientAddress-postCode"
+                  placeholder="Post Code"
+                  name="clientAddress-postCode"
+                />
+              </div>
             </div>
             {/* ClientAddress country */}
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="clientAddress-country">Country</Label>
+            <div className="grid w-full max-w-full items-center gap-1.5">
+              <Label
+                className="sheet__global__text"
+                htmlFor="clientAddress-country"
+              >
+                Country
+              </Label>
               <Input
                 type="text"
                 defaultValue={info && clientAddress.country}
@@ -228,9 +276,11 @@ function Form({ info, setSheetOpen }) {
       {/* Invoice Date */}
       <div className="flex flex-col gap-5 mb-10">
         {/* InVoice Date and select terms*/}
-        <div className="flex items-end gap-10">
+        <div className="flex flex-wrap md:flex-nowrap lg:flex-nowrap items-end gap-10">
           <div className="grid w-full max-w-full items-center gap-1.5">
-            <Label htmlFor="createdAt">Invoice Date</Label>
+            <Label className="sheet__global__text" htmlFor="createdAt">
+              Invoice Date
+            </Label>
             <Input
               defaultValue={info && createdAt}
               type="date"
@@ -242,7 +292,7 @@ function Form({ info, setSheetOpen }) {
           {/* Select */}
           <Select
             name="paymentTerms"
-            defaultValue={info && paymentTerms.toString()}
+            defaultValue={info ? paymentTerms.toString() : "1"}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Payment Terms" />
@@ -261,7 +311,9 @@ function Form({ info, setSheetOpen }) {
 
         {/* Project Description */}
         <div className="grid w-full max-w-full items-center gap-1.5">
-          <Label htmlFor="description">Project Description</Label>
+          <Label className="sheet__global__text" htmlFor="description">
+            Project Description
+          </Label>
           <Input
             type="text"
             defaultValue={info && description}

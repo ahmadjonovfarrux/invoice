@@ -23,7 +23,7 @@ function SideBar() {
       {/* Sheet */}
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent
-          className="md:ml-[72px]  min-w-[calc(80%-72px)] overflow-y-auto max-h-screen"
+          className="sideBar__sheetContent"
           side="left"
         >
           <SheetHeader className="top-0 sticky w-full  border-b">
