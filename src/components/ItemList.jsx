@@ -75,12 +75,12 @@ function ItemList({ info }) {
 
   return (
     <div>
-      <h1>Item List</h1>
-      <div className="flex items-center justify-between">
-        <span>Item Name</span>
-        <span>Qty.</span>
-        <span>Price</span>
-        <span>Total</span>
+      <h1 className="font-bold text-[18px] text-[#777F98]">Item List</h1>
+      <div className="flex items-center justify-around">
+        <span className="sheet__global__text">Item Name</span>
+        <span className="sheet__global__text">Qty.</span>
+        <span className="sheet__global__text">Price</span>
+        <span className="sheet__global__text">Total</span>
       </div>
       <ul className="flex flex-col gap-5 mb-5">
         {localItems.map(({ name, quantity, total, price, id }, index) => {

@@ -135,6 +135,48 @@
     display: none;
   }
 
+  .details__item__name {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .details__itemNames {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  .details__hide__item {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1.3;
+    display: none;
+    margin-top: 8px;
+    color: #7e88c3;
+  }
+
+  .details__footer__total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px;
+    background-color: #373b53;
+    color: white;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .details__total {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .sideBar__sheetContent {
+    @apply min-w-[calc(100%-72px)] md:ml-[72px]  md:min-w-[calc(70%-72px)] overflow-y-auto max-h-screen;
+  }
+
   /* Media 705 */
   @media (max-width: 705px) {
     .myCard__hidden {
@@ -178,6 +220,23 @@
     }
   }
 
+  /* Sheet */
+
+  .sheet__title {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #7c5dfa;
+    margin-bottom: 24px;
+  }
+
+  .sheet__global__text {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #7e88c3;
+  }
+
   /* Media 540 */
   @media (max-width: 540px) {
     .card__buttons {
@@ -187,8 +246,17 @@
     .card__hidden__buttons {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
+      margin-top: 56px;
+      margin-bottom: 22px;
     }
+
+    .sideBar__sheetContent {
+      @apply min-w-[calc(100%)];
+    }
+
+    
   }
 
   /* Media 470 */
@@ -204,6 +272,18 @@
       flex-direction: column;
       align-items: start;
       text-align: start;
+    }
+
+    .details__itemNames {
+      display: none;
+    }
+
+    .details__hidden__item {
+      display: none;
+    }
+
+    .details__hide__item {
+      display: flex;
     }
   }
 }

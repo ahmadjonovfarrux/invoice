@@ -95,7 +95,7 @@ function Details() {
   console.log(invoice);
 
   return (
-    <div className="py-5">
+    <div className="pt-5">
       <div className="base__container">
         <Card>
           <CardContent className="flex justify-between items-center">
@@ -215,13 +215,45 @@ function Details() {
           </div>
         </div>
 
-        {/* Items */}
-        {invoice.items?.map((item) => {
-          return <div>1</div>;
-        })}
+        <div className=" p-8">
+          {/* Items */}
+          <div className="details__itemNames">
+            <span className="details__paragrph">Item Name</span>
+            <span className="details__paragrph">QTY.</span>
+            <span className="details__paragrph">Price</span>
+            <span className="details__paragrph">Total</span>
+          </div>
 
+          {invoice?.items?.map((item) => {
+            console.log(item);
+            return (
+              <div className="flex items-center justify-between" key={item.id}>
+                <div className="flex flex-col">
+                  <h3 className="details__item__name">{item.name}</h3>
+                  <span className="details__hide__item">
+                    {item.quantity} x {item.price}
+                  </span>
+                </div>
+                <span className="details__hidden__item details__paragrph">
+                  {item.quantity}
+                </span>
+                <span className="details__hidden__item details__item__name text-[#7e88c3]">
+                  £{item.price.toFixed(2)}
+                </span>
+                <span className="details__item__name">
+                  £{item.total.toFixed(2)}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        {/* Total footer */}
+        <div className="details__footer__total">
+          <p className="details__paragrph text-white">Amount Due</p>
+          <h2 className="details__total">£{invoice.total}</h2>
+        </div>
         {/* hidden buttons */}
-        {/* <div className="card__hidden__buttons">
+        <div className="card__hidden__buttons">
           <Button
             onClick={() => {
               handleEdit(invoice);
@@ -272,7 +304,7 @@ function Details() {
               </Button>
             </>
           )}
-        </div> */}
+        </div>
       </div>
     </div>
   );
