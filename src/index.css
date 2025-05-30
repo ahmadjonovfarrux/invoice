@@ -61,5 +61,69 @@
     font-size: 32px;
     line-height: 1;
     font-weight: 700;
+    color: #0c0e16;
+  }
+
+  .header__subtitle,
+  .header__hidden {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #888eb0;
+    margin-top: 8px;
+  }
+
+  .header__hidden {
+    display: none;
+  }
+
+  .header__btn {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #0c0e16;
+  }
+
+  .header__hidden__dropdown {
+    display: none;
+  }
+
+  /* My Card page */
+  .myCard__total {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* 766px */
+  @media (max-width: 600px) {
+    .header__title {
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 700;
+      color: #0c0e16;
+    }
+
+    .header__hidden {
+      display: flex;
+      margin-top: 2px;
+    }
+
+    .header__subtitle {
+      display: none;
+      margin-top: 0;
+    }
+
+    .header__hidden__dropdown {
+      display: flex;
+    }
+
+    .header__hidden__box {
+      display: none;
+    }
+
+    .sidebar__toggle {
+      display: none;
+    }
   }
 }

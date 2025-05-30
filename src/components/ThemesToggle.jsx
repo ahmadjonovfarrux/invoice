@@ -56,34 +56,36 @@ function ThemesToggle() {
 
   return (
     <div className="flex gap-5 md:flex-col md:items-start">
-      <DropdownMenu className="">
-        <DropdownMenuTrigger asChild className="md:hidden">
-          <Button variant="secondary">
-            <span className="block md:hidden">Change Theme</span>
-            <ArrowBigDown className="" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56 ">
-          <DropdownMenuLabel>Themes</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <div className="flex flex-col">
-            {themes.map((el, index) => {
-              return (
-                <Button
-                  onClick={() => {
-                    handleTheme(el, "theme");
-                  }}
-                  key={index}
-                  className={`justify-start`}
-                  variant="ghost"
-                >
-                  {el}
-                </Button>
-              );
-            })}
-          </div>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="sidebar__toggle">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild className="md:hidden">
+            <Button variant="secondary">
+              <span className="block md:hidden">Change Theme</span>
+              <ArrowBigDown className="" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56 ">
+            <DropdownMenuLabel>Themes</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <div className="flex flex-col">
+              {themes.map((el, index) => {
+                return (
+                  <Button
+                    onClick={() => {
+                      handleTheme(el, "theme");
+                    }}
+                    key={index}
+                    className={`justify-start`}
+                    variant="ghost"
+                  >
+                    {el}
+                  </Button>
+                );
+              })}
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <Button
         size={"icon"}
         onClick={() => {
