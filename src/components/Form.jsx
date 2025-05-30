@@ -327,7 +327,7 @@ function Form({ info, setSheetOpen }) {
       <ItemList info={items} />
 
       {info ? (
-        <div className="flex items-center justify-end gap-5 mt-10">
+        <div className="flex  items-center justify-end gap-5 mt-10">
           {/* Cancel */}
           <Button variant={"outline"} onClick={() => setSheetOpen(false)}>
             Cancel
@@ -338,7 +338,7 @@ function Form({ info, setSheetOpen }) {
           </Button>
         </div>
       ) : (
-        <div className="flex items-center justify-end gap-5 mt-10">
+        <div className="flex flex-wrap items-center justify-end gap-5 mt-10">
           {/* Discard */}
           <Button
             type="button"

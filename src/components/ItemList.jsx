@@ -77,23 +77,27 @@ function ItemList({ info }) {
     <div>
       <h1 className="font-bold text-[18px] text-[#777F98]">Item List</h1>
       <div className="flex items-center justify-around">
-        <span className="sheet__global__text">Item Name</span>
-        <span className="sheet__global__text">Qty.</span>
-        <span className="sheet__global__text">Price</span>
-        <span className="sheet__global__text">Total</span>
+        <span className="sheet__global__text item__hide">Item Name</span>
+        <span className="sheet__global__text item__hide">Qty.</span>
+        <span className="sheet__global__text item__hide">Price</span>
+        <span className="sheet__global__text item__hide">Total</span>
       </div>
       <ul className="flex flex-col gap-5 mb-5">
         {localItems.map(({ name, quantity, total, price, id }, index) => {
           return (
-            <li className="flex items-center justify-between" key={index}>
+            <li
+              className="flex flex-wrap items-center justify-between gap-3"
+              key={index}
+            >
               <Input
                 onChange={(e) => handleChange(e, id)}
                 defaultValue={name}
-                className="w-[214px]"
+                className="sm:w-full md:w-[214px]"
                 type="text"
                 name="name"
                 placeholder="Item Name"
               />
+
               <Input
                 onChange={(e) => handleChange(e, id)}
                 defaultValue={quantity}

@@ -186,6 +186,10 @@
     .myCard__card {
       display: none;
     }
+
+    .item__hide {
+      display: none;
+    }
   }
 
   /* 600px */
@@ -255,8 +259,6 @@
     .sideBar__sheetContent {
       @apply min-w-[calc(100%)];
     }
-
-    
   }
 
   /* Media 470 */
