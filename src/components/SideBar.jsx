@@ -26,8 +26,10 @@ function SideBar() {
           className="md:ml-[72px]  min-w-[calc(80%-72px)] overflow-y-auto max-h-screen"
           side="left"
         >
-          <SheetHeader className="top-0 sticky w-full bg-white border-b">
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
+          <SheetHeader className="top-0 sticky w-full  border-b">
+            <SheetTitle className="sideBar__sheet__title">
+              New Invoice
+            </SheetTitle>
           </SheetHeader>
           <Form setSheetOpen={setSheetOpen} info={editedData} />
         </SheetContent>
