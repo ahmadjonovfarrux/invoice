@@ -28,7 +28,7 @@ function MyCard({
           <CardTitle>#{id}</CardTitle>
           <CardDescription>{createdAt}</CardDescription>
           <span>{clientName}</span>
-          <span>£{total}</span>
+          <span className="myCard__total">£{total}</span>
           <StatusBadge status={status} />
           <ArrowRight className="text-[#7C5DFA]" />
         </CardHeader>

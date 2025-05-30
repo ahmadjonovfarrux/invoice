@@ -41,49 +41,96 @@ function Header() {
       <div className="base__container flex items-center justify-between py-10">
         <div>
           <h1 className="header__title ">Invoices</h1>
-          <p>There are {invoices?.length} total invoices</p>
+          <p className="header__hidden">{invoices?.length} invoices</p>
+          <p className="header__subtitle">
+            There are {invoices?.length} total invoices
+          </p>
         </div>
-        {/* dropdownmenu */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className={`ml-auto mr-10`} variant="ghost">
-              Filter by status
-              <ArrowBigDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Statuses</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <div className="flex flex-col">
-              {Object.entries(items).map(([key, value]) => {
-                return (
-                  <Label
-                    key={Math.random()}
-                    className={`${buttonVariants({
-                      variant: "ghost",
-                    })}  justify-start capitalize`}
-                    htmlFor={key}
-                  >
-                    <input
-                      value={key}
-                      type="checkbox"
-                      onChange={handleChange}
-                      checked={value}
-                      id={key}
-                    />
-                    {key}
-                  </Label>
-                );
-              })}
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenu>
 
-        {/* SheetOpen button */}
-        <Button onClick={setSheetOpen}>
-          <PlusCircleIcon />
-          New Invoice
-        </Button>
+        {/* HIdden dropdown */}
+        <div className="header__hidden__dropdown">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className={`ml-auto mr-10 header__btn`} variant="ghost">
+                Filter
+                <ArrowBigDown className="text-[#7C5DFA]" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>Statuses</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <div className="flex flex-col">
+                {Object.entries(items).map(([key, value]) => {
+                  return (
+                    <Label
+                      key={Math.random()}
+                      className={`${buttonVariants({
+                        variant: "ghost",
+                      })}  justify-start capitalize`}
+                      htmlFor={key}
+                    >
+                      <input
+                        value={key}
+                        type="checkbox"
+                        onChange={handleChange}
+                        checked={value}
+                        id={key}
+                      />
+                      {key}
+                    </Label>
+                  );
+                })}
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Button onClick={setSheetOpen}>
+            <PlusCircleIcon className="header__plusIcon" />
+            New
+          </Button>
+        </div>
+
+        <div className="header__hidden__box">
+          {/* dropdownmenu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className={`ml-auto mr-10 header__btn`} variant="ghost">
+                Filter by status
+                <ArrowBigDown className="text-[#7C5DFA]" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>Statuses</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <div className="flex flex-col">
+                {Object.entries(items).map(([key, value]) => {
+                  return (
+                    <Label
+                      key={Math.random()}
+                      className={`${buttonVariants({
+                        variant: "ghost",
+                      })}  justify-start capitalize`}
+                      htmlFor={key}
+                    >
+                      <input
+                        value={key}
+                        type="checkbox"
+                        onChange={handleChange}
+                        checked={value}
+                        id={key}
+                      />
+                      {key}
+                    </Label>
+                  );
+                })}
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          {/* SheetOpen button */}
+          <Button onClick={setSheetOpen}>
+            <PlusCircleIcon className="header__plusIcon" />
+            New Invoice
+          </Button>
+        </div>
       </div>
     </div>
   );
